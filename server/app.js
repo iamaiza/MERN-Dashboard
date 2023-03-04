@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const User = require("./models/userModel.js")
+const User = require("./models/userModel.js");
 const userRouter = require("./routes/userRoutes.js");
 
 const app = express();
@@ -22,19 +22,30 @@ app.get("/api", (req, res) => {
     res.json("test ok");
 });
 
-app.post("/login", async(req, res) => {
+app.post("/login", async (req, res) => {
     const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        const pass = bcrypt.compareSync(password, user.password)
-        if(user) {
-            if(pass) {
-                res.json("Successfully logged in")
-            } else {
-                res.json("Entered password is invalid")
-            }
+    const user = await User.findOne({ email });
+    const pass = bcrypt.compareSync(password, user.password);
+    if (user) {
+        if (pass) {
+            res.json("Successfully logged in");
         } else {
-            res.json("User doesn't exist")
+            res.json("Entered password is invalid");
         }
+    } else {
+        res.json("User doesn't exist");
+    }
+});
+
+app.post("/newUser", async (req, res) => {
+    const { name, email, password, type } = req.body;
+
+    const user = await User.create({
+        name,
+        email,
+        password: password !== "" && bcrypt.hashSync(password, 10),
+        type,
+    });
 });
 
 app.listen(3000, () => {
