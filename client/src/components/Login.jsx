@@ -6,8 +6,11 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate()
+
+    useEffect(() => {
+        navigate("/dashboard")
+    }, [])
 
     const loginUserHandler = async (e) => {
         e.preventDefault();
@@ -17,7 +20,6 @@ const Login = () => {
                     email,
                     password,
                 });
-                setRedirect(true);
                 setEmail("");
                 setPassword("");
             } else {
@@ -26,10 +28,6 @@ const Login = () => {
             }
         } catch (error) {
             console.log(error);
-        }
-
-        if (redirect) {
-            navigate("/dashboard")
         }
     };
 
@@ -49,6 +47,7 @@ const Login = () => {
                             onChange={(e) => {
                                 setEmail(e.target.value);
                             }}
+                            required
                         />
                     </div>
                     <div>
@@ -63,6 +62,7 @@ const Login = () => {
                             onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
+                            required
                         />
                     </div>
                     <div>
