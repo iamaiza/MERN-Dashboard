@@ -2,7 +2,7 @@ import React from 'react'
 
 const Board = () => {
   return (
-    <div>Board</div>
+    <div className='pt-16'>Board</div>
   )
 }
 
