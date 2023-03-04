@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirect, setRedirect] = useState(false);
+    const navigate = useNavigate()
 
     const loginUserHandler = async (e) => {
         e.preventDefault();
@@ -28,7 +29,7 @@ const Login = () => {
         }
 
         if (redirect) {
-            return <Navigate to="/dashboard" />;
+            navigate("/dashboard")
         }
     };
 
