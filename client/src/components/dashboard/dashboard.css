@@ -1,0 +1,41 @@
+.dashboard-list {
+    width: 10rem;
+    height: 91vh;
+}
+
+.dashboard-list,
+.userList,
+.product {
+    overflow-y: auto;
+}
+
+.dashboard-list::-webkit-scrollbar,
+.userList::-webkit-scrollbar,
+.product::-webkit-scrollbar {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #e5e4e4;
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color: #f7f7f7;
+}
+
+figure.img {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+
+.product-img:hover {
+    transform: scale(1.1);
+    transition: all 0.4s ease-in-out;
+}
+
+div.search {
+    max-width: 35rem;
+    width: 100%;
+}
