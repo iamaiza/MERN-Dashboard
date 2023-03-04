@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [redirect, setRedirect] = useState(false);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        navigate("/dashboard")
+    }, [])
 
     const loginUserHandler = async (e) => {
         e.preventDefault();
@@ -16,7 +20,6 @@ const Login = () => {
                     email,
                     password,
                 });
-                setRedirect(true);
                 setEmail("");
                 setPassword("");
             } else {
@@ -25,10 +28,6 @@ const Login = () => {
             }
         } catch (error) {
             console.log(error);
-        }
-
-        if (redirect) {
-            return <Navigate to="/dashboard" />;
         }
     };
 
@@ -48,6 +47,7 @@ const Login = () => {
                             onChange={(e) => {
                                 setEmail(e.target.value);
                             }}
+                            required
                         />
                     </div>
                     <div>
@@ -62,6 +62,7 @@ const Login = () => {
                             onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
+                            required
                         />
                     </div>
                     <div>
