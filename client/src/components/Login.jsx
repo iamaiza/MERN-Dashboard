@@ -42,7 +42,7 @@ const Login = () => {
                         <input
                             type="email"
                             placeholder="Enter your email address"
-                            className="block w-full border mt-1 p-1 outline-none"
+                            className="block w-full border mt-1 mb-3 p-1 outline-none"
                             value={email}
                             onChange={(e) => {
                                 setEmail(e.target.value);
