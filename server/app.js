@@ -38,12 +38,13 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/newUser", async (req, res) => {
-    const { name, email, password, type } = req.body;
+    const { name, email, password, contact, type } = req.body;
 
     const user = await User.create({
         name,
         email,
         password: password !== "" && bcrypt.hashSync(password, 10),
+        contact,
         type,
     });
 });

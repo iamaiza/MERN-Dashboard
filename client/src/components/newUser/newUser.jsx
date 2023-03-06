@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const NewUser = () => {
@@ -11,38 +11,32 @@ const NewUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    console.log(location.state.title);
 
     const createNewUserHandler = async (e) => {
         e.preventDefault();
+        const con = name !== "" && email !== "" && contact !== "";
+
+        if (con && (password === "" || password !== "")) {
+            navigate(`/dashboard/${location.state.title}`);
+        } else return;
 
         try {
-            if(name !== "" && email !== "" && contact !== "") {
-                if((location.state.title === 'admin' && password !== "") || (location.state.title !== "admin" && password === "")) {
-                    await axios.post("/newUser", {
-                        name,
-                        email,
-                        password,
-                        contact,
-                        type: location.state.title,
-                    });
-                    setName("")
-                    setEmail("")
-                    setPassword("")
-                    setContact("")
-                } else {
-                    alert('Password is required')
-                    return;
-                }
-            } else {
-                alert('Invalid data')
-                return;
-            }
-            
+            if (con && (password === "" || password !== "")) {
+                await axios.post("/newUser", {
+                    name,
+                    email,
+                    password,
+                    contact,
+                    type: location.state.title,
+                });
+                setName("");
+                setEmail("");
+                setPassword("");
+                setContact("");
+            } else return;
         } catch (error) {
             console.log(error);
         }
-        navigate(`/dashboard/${location.state.title}`)
     };
 
     return (
@@ -77,7 +71,13 @@ const NewUser = () => {
                             }}
                         />
                     </div>
-                    <div className={`${location.state.title === "admin" ? 'block' : 'hidden'}`}>
+                    <div
+                        className={`${
+                            location.state.title === "admin"
+                                ? "block"
+                                : "hidden"
+                        }`}
+                    >
                         <label htmlFor="" className="font-semibold">
                             Password
                         </label>
