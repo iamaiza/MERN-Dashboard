@@ -40,7 +40,7 @@ app.post("/login", async (req, res) => {
 app.post("/newUser", async (req, res) => {
     const { name, email, password, contact, type } = req.body;
 
-    const user = await User.create({
+    await User.create({
         name,
         email,
         password: password !== "" && bcrypt.hashSync(password, 10),
@@ -48,6 +48,13 @@ app.post("/newUser", async (req, res) => {
         type,
     });
 });
+
+app.delete("/delete/:id", async(req, res) => {
+    const id = req.params.id
+
+    await User.findByIdAndRemove(id).exec()
+    res.send("Successfully deleted")
+})
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
