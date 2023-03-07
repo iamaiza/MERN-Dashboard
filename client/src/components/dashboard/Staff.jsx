@@ -19,7 +19,7 @@ const Staff = () => {
     const createNewUser = (e) => {
         e.preventDefault();
 
-        navigate("/createUser", { state: { title: "admin" } });
+        navigate("/dashboard/createUser", { state: { title: "admin" } });
     };
 
     return (

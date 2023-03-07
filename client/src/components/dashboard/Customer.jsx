@@ -20,7 +20,7 @@ const Customer = () => {
     const createNewUser = (e) => {
         e.preventDefault();
 
-        navigate("/createUser", { state: { title: "customer" } });
+        navigate("/dashboard/createUser", { state: { title: "customer" } });
     };
 
     return (

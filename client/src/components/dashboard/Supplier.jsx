@@ -18,7 +18,7 @@ const Supplier = () => {
 
     const createNewUser = (e) => {
         e.preventDefault();
-        navigate("/createUser", { state: { title: "supplier" }});
+        navigate("/dashboard/createUser", { state: { title: "supplier" }});
     };
 
     return (
