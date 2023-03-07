@@ -14,33 +14,43 @@ const NewUser = () => {
 
     const createNewUserHandler = async (e) => {
         e.preventDefault();
-        const con = name !== "" && email !== "" && contact !== "";
-
-        if (con && (password === "" || password !== "")) {
-            navigate(`/dashboard/${location.state.title}`);
-        } else return;
-
         try {
-            if (con && (password === "" || password !== "")) {
-                await axios.post("/newUser", {
-                    name,
-                    email,
-                    password,
-                    contact,
-                    type: location.state.title,
-                });
+
+            if(name === "" && email === "" && contact === "") {
+                alert("Please Enter some data")
+                return;
+            }
+            if(location.state.title === "admin" && password === "") {
+                alert("Passwprd is required.")
+                return;
+            }
+            await axios.post("/newUser", {
+                name,
+                email,
+                password,
+                contact,
+                type: location.state.title,
+            });
                 setName("");
                 setEmail("");
                 setPassword("");
                 setContact("");
-            } else return;
         } catch (error) {
             console.log(error);
         }
     };
 
+    const prevPageHandler = () => {
+        navigate(`/dashboard/${location.state.title}`)
+    }
+
     return (
-        <div className="p-4 flex flex-col min-h-screen">
+        <div className="p-4 flex min-h-screen w-full relative">
+            <div className="absolute top-16 text-gray-600 hover:bg-gray-50 p-2 rounded-full" onClick={prevPageHandler}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+            </div>
             <div className="grow flex items-center justify-around">
                 <form className="" onSubmit={createNewUserHandler}>
                     <div>
@@ -106,7 +116,7 @@ const NewUser = () => {
                         />
                     </div>
                     <div>
-                        <button className="py-3 px-3 text-white mt-3 w-full flex justify-center bg-green-500">
+                        <button className="py-3 px-3 text-white mt-3 w-full flex justify-center bg-gray-500">
                             Create User
                         </button>
                     </div>

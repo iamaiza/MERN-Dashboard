@@ -20,8 +20,8 @@ function App() {
                     <Route path="/dashboard/orders" element={<Orders />} />
                     <Route path="/dashboard/board" element={<Board />} />
                     <Route path="/dashboard/sales" element={<Sales />} />
+                    <Route path="/dashboard/createUser" element={<NewUser />} />
                 </Route>
-                <Route path="/createUser" element={<NewUser />} />
             </Routes>
         </div>
     );
