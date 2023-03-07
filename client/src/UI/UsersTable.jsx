@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 
 const UsersTable = ({ users }) => {
 
-    const deleteDocHandler = async(id) => {
+    const deleteUserHandler = async(id) => {
         await axios.delete(`/delete/${id}`)
 
         const tableRow = document.getElementById(id)
@@ -45,7 +45,7 @@ const UsersTable = ({ users }) => {
                                     <div className="flex items-center justify-center gap-2">
                                         <div onClick={(e) => {
                                             e.preventDefault()
-                                            deleteDocHandler(user._id)
+                                            deleteUserHandler(user._id)
                                         }}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
