@@ -1,54 +1,35 @@
 import axios from "axios";
-import React, { Fragment, useRef } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import UserForm from "../../UI/UserForm";
 
 const NewUser = () => {
-    const nameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const contactRef = useRef();
-
     const location = useLocation();
+
+    const [name, setName] = useState(location.state.data.name);
+    const [email, setEmail] = useState(location.state.data.email);
+    const [password, setPassword] = useState(location.state.data.password);
+    const [contact, setContact] = useState(location.state.data.contact);
+
     const navigate = useNavigate();
 
-    const createNewUserHandler = async (e) => {
+    const updateUserHandler = async (e) => {
         e.preventDefault();
-        const enteredName = nameRef.current.value;
-        const enteredEmail = emailRef.current.value;
-        const enteredPassword = passwordRef.current.value;
-        const enteredContact = contactRef.current.value;
+
         try {
-            if (
-                enteredName === "" &&
-                enteredEmail === "" &&
-                enteredContact === ""
-            ) {
-                alert("Please Enter some data");
-                return;
-            }
-            if (location.state.title === "admin" && enteredPassword === "") return;
-
-            await axios.post("/newUser", {
-                name: enteredName,
-                email: enteredEmail,
-                password: enteredPassword,
-                contact: enteredContact,
-                type: location.state.title,
+            await axios.put(`/update/${location.state.data.id}`, {
+                name,
+                email,
+                password,
+                contact,
             });
-
-            enteredName = "";
-            enteredEmail = "";
-            enteredPassword = "";
-            enteredContact = "";
         } catch (error) {
             console.log(error);
         }
     };
 
     const prevPageHandler = () => {
-        navigate(`/dashboard/${location.state.title}`)
-    }
+        navigate(`/dashboard/${location.state.title}`);
+    };
 
     return (
         <div className="p-4 flex min-h-screen w-full relative">
@@ -58,7 +39,7 @@ const NewUser = () => {
                 </svg>
             </div>
             <div className="grow flex items-center justify-around">
-                <form className="" onSubmit={createNewUserHandler}>
+                <form className="" onSubmit={updateUserHandler}>
                     <div>
                         <label htmlFor="" className="font-semibold">
                             Name
@@ -67,7 +48,8 @@ const NewUser = () => {
                             type="text"
                             placeholder="Enter your name"
                             className="block w-full border mt-1 mb-3 p-1 outline-none"
-                            ref={nameRef}
+                            value={name}
+                            onChange={(e) => {setName(e.target.value)}}
                         />
                     </div>
                     <div>
@@ -78,7 +60,8 @@ const NewUser = () => {
                             type="email"
                             placeholder="Enter your email address"
                             className="block w-full border mt-1 mb-3 p-1 outline-none"
-                            ref={emailRef}
+                            value={email}
+                            onChange={(e) => {setEmail(e.target.value)}}
                         />
                     </div>
                     <div
@@ -95,7 +78,8 @@ const NewUser = () => {
                             type="password"
                             placeholder="Enter your password"
                             className="block w-full border mt-1 mb-3 p-1 outline-none"
-                            ref={passwordRef}
+                            value={password}
+                            onChange={(e) => {setPassword(e.target.value)}}
                         />
                     </div>
                     <div>
@@ -106,12 +90,13 @@ const NewUser = () => {
                             type="text"
                             placeholder="Enter your phone number"
                             className="block w-full border mt-1 mb-3 p-1 outline-none"
-                            ref={contactRef}
+                            value={contact}
+                            onChange={(e) => {setContact(e.target.value)}}
                         />
                     </div>
                     <div>
                         <button className="py-3 px-3 text-white mt-3 w-full flex justify-center bg-gray-500">
-                            Create User
+                            Update User
                         </button>
                     </div>
                 </form>

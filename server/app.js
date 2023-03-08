@@ -16,6 +16,7 @@ app.use(userRouter);
 mongoose.connect(process.env.MONGO_CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 app.get("/api", (req, res) => {
@@ -48,6 +49,30 @@ app.post("/newUser", async (req, res) => {
         type,
     });
 });
+
+
+app.put("/update/:id", async(req, res) => {
+    const id = req.params.id
+    const { name, email, password, contact } = req.body
+
+    try {
+        const updateUser = await User.findOneAndUpdate({_id: id}, { name, email, password, contact }, { new: true }, (err, foundUser) => {
+            if(!err) {
+                foundUser.name = name
+                foundUser.email = email
+                foundUser.password = password
+                foundUser.contact = contact
+    
+                foundUser.save()
+            }
+        })
+        res.send(updateUser)
+    } catch (error) {
+        res.json(error)
+    }
+
+})
+
 
 app.delete("/delete/:id", async(req, res) => {
     const id = req.params.id

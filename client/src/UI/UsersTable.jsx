@@ -1,20 +1,39 @@
 import axios from "axios";
 import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UsersTable = ({ users }) => {
+    const navigate = useNavigate();
 
-    const deleteDocHandler = async(id) => {
-        await axios.delete(`/delete/${id}`)
+    const deleteUserHandler = async (id) => {
+        await axios.delete(`/delete/${id}`);
 
-        const tableRow = document.getElementById(id)
-        const table = document.querySelector('table')
-        const tbody = document.querySelector('tbody')
-        tableRow.remove()
+        const tableRow = document.getElementById(id);
+        const table = document.querySelector("table");
+        const tbody = document.querySelector("tbody");
+        tableRow.remove();
 
-        if(tbody.innerHTML === "") {
-            table.remove()
+        if (tbody.innerHTML === "") {
+            table.remove();
         }
+    };
 
+    const updateUserHandler = async (
+        id,
+        name,
+        email,
+        password,
+        contact,
+        type
+    ) => {
+        navigate("/dashboard/updateUser", {
+            state: {
+                title: type,
+                data: { id, name, email, password, contact },
+            },
+        });
+
+        await axios.put(`/update/${id}`, { name, email, password, contact });
     };
 
     return (
@@ -32,11 +51,7 @@ const UsersTable = ({ users }) => {
                     </thead>
                     <tbody>
                         {users.map((user) => (
-                            <tr
-                                key={user._id}
-                                className="mt-5"
-                                id={user._id}
-                            >
+                            <tr key={user._id} className="mt-5" id={user._id}>
                                 <td className="text-sm p-2">{user._id}</td>
                                 <td className="text-sm p-2">{user.name}</td>
                                 <td className="text-sm p-2">{user.email}</td>
@@ -45,7 +60,7 @@ const UsersTable = ({ users }) => {
                                     <div className="flex items-center justify-center gap-2">
                                         <div onClick={(e) => {
                                             e.preventDefault()
-                                            deleteDocHandler(user._id)
+                                            deleteUserHandler(user._id)
                                         }}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -62,14 +77,26 @@ const UsersTable = ({ users }) => {
                                                 />
                                             </svg>
                                         </div>
-                                        <div>
+                                        <div
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                updateUserHandler(
+                                                    user._id,
+                                                    user.name,
+                                                    user.email,
+                                                    user.password,
+                                                    user.contact,
+                                                    user.type
+                                                );
+                                            }}
+                                        >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
                                                 strokeWidth={1.5}
                                                 stroke="currentColor"
-                                                className="w-4 h-4 text-blue-900"
+                                                className="w-4 h-4 text-blue-900 cursor-pointer"
                                             >
                                                 <path
                                                     strokeLinecap="round"
