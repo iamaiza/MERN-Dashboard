@@ -57,7 +57,7 @@ const Login = () => {
                         <input
                             type="password"
                             placeholder="Enter your password"
-                            className="block w-full border mt-1 mb-1 p-1 outline-none"
+                            className="block w-full border mt-1 mb-3 p-1 outline-none"
                             value={password}
                             onChange={(e) => {
                                 setPassword(e.target.value);

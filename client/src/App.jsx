@@ -2,6 +2,7 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import NewUser from "./components/newUser/newUser";
+import UpdateUser from './components/newUser/UpdateUser'
 import { Board, Customer, Orders, Product, Sales, Staff, Supplier, Dashboard } from './index'
 
 axios.defaults.baseURL = "http://localhost:3000";
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/dashboard/board" element={<Board />} />
                     <Route path="/dashboard/sales" element={<Sales />} />
                     <Route path="/dashboard/createUser" element={<NewUser />} />
+                    <Route path="/dashboard/updateUser" element={<UpdateUser />} />
                 </Route>
             </Routes>
         </div>
