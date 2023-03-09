@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { Fragment, useRef } from "react";
+import React, { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import UserForm from "../../UI/UserForm";
 
 const NewUser = () => {
     const nameRef = useRef();
@@ -14,10 +13,10 @@ const NewUser = () => {
 
     const createNewUserHandler = async (e) => {
         e.preventDefault();
-        const enteredName = nameRef.current.value;
-        const enteredEmail = emailRef.current.value;
-        const enteredPassword = passwordRef.current.value;
-        const enteredContact = contactRef.current.value;
+        let enteredName = nameRef.current.value;
+        let enteredEmail = emailRef.current.value;
+        let enteredPassword = passwordRef.current.value;
+        let enteredContact = contactRef.current.value;
         try {
             if (
                 enteredName === "" &&

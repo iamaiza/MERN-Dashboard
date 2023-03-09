@@ -22,6 +22,10 @@ const NewUser = () => {
                 password,
                 contact,
             });
+            setName("")
+            setEmail("")
+            setPassword("")
+            setContact("")
         } catch (error) {
             console.log(error);
         }
