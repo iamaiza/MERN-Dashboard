@@ -23,26 +23,8 @@ const Supplier = () => {
 
     return (
         <div className="pt-16 h-screen w-full userList px-24 pb-5">
-            <h1 className="mb-5 text-3xl font-bold">Suppliers</h1>
-            <div className="search flex items-center mb-7 mx-auto">
-                <form action="" className="flex">
-                    <input
-                        type="text"
-                        placeholder="Search suppliers....."
-                        className="border w-full mr-1 py-1 px-2 outline-none"
-                    />
-                    <button className="bg-gray-500 py-1 px-5 mr-1 text-white">
-                        Search
-                    </button>
-                </form>
-                <button
-                    className="bg-gray-500 py-1 px-7 text-white"
-                    onClick={createNewUser}
-                >
-                    Add
-                </button>
-            </div>
-            <UsersTable users={suppliers} />
+            <h1 className="mb-5 text-3xl font-bold">Suppliers</h1> 
+            <UsersTable users={suppliers} createUser={createNewUser} />
         </div>
     );
 };

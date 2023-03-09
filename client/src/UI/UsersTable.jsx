@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 
-const UsersTable = ({ users }) => {
+const UsersTable = ({ users, createUser }) => {
     const navigate = useNavigate();
 
     const deleteUserHandler = async (id) => {
@@ -38,6 +38,25 @@ const UsersTable = ({ users }) => {
 
     return (
         <Fragment>
+            <div className="flex items-center mb-7 mx-auto search">
+                <form action="" className="flex">
+                    <input
+                        type="text"
+                        placeholder="Search customers....."
+                        className="border w-full mr-1 py-1 px-2 outline-none"
+                    />
+                    <button className="bg-gray-500 py-1 px-5 mr-1 text-white">
+                        Search
+                    </button>
+                </form>
+
+                <button
+                    className="bg-gray-500 py-1 px-7 text-white"
+                    onClick={createUser}
+                >
+                    Add
+                </button>
+            </div>
             {users.length !== 0 && (
                 <table className="w-full">
                     <thead>
