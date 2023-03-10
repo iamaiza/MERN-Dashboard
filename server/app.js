@@ -42,61 +42,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.post("/newUser", async (req, res) => {
-    const { name, email, password, contact, type } = req.body;
-
-    await User.create({
-        name,
-        email,
-        password: password !== "" && bcrypt.hashSync(password, 10),
-        contact,
-        type,
-    });
-});
-
-app.put("/update/:id", async (req, res) => {
-    const id = req.params.id;
-    const { name, email, password, contact } = req.body;
-
-    try {
-        const updateUser = await User.findOneAndUpdate(
-            { _id: id },
-            { name, email, password, contact },
-            { new: true },
-            (err, foundUser) => {
-                if (!err) {
-                    foundUser.name = name;
-                    foundUser.email = email;
-                    foundUser.password = bcrypt.hashSync(password, 10);
-                    foundUser.contact = contact;
-
-                    foundUser.save();
-                }
-            }
-        );
-        res.send(updateUser);
-    } catch (error) {
-        return res.json(error);
-    }
-});
-
-app.get("/users", async (req, res) => {
-    try {
-        const { search } = req.query;
-        const query = await User.find({ name: { $regex: '.*' + search + '.*' }});
-        console.log('query:',query)
-        return res.json(query).end();
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-app.delete("/delete/:id", async (req, res) => {
-    const id = req.params.id;
-
-    await User.findByIdAndRemove(id).exec();
-    res.send("Successfully deleted");
-});
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
