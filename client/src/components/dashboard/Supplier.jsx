@@ -24,7 +24,7 @@ const Supplier = () => {
     return (
         <div className="pt-16 h-screen w-full userList px-24 pb-5">
             <h1 className="mb-5 text-3xl font-bold">Suppliers</h1> 
-            <UsersTable users={suppliers} createUser={createNewUser} />
+            <UsersTable users={suppliers} setUsers={setSuppliers} createUser={createNewUser} />
         </div>
     );
 };

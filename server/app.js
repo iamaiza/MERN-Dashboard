@@ -16,11 +16,15 @@ app.use(userRouter);
 mongoose.connect(process.env.MONGO_CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+});
+
+mongoose.set("debug", (collectionName, method, query, doc) => {
+    console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
 });
 
 app.get("/api", (req, res) => {
-    res.json("test ok");
+    return res.json("test ok");
 });
 
 app.post("/login", async (req, res) => {
@@ -29,12 +33,12 @@ app.post("/login", async (req, res) => {
     const pass = bcrypt.compareSync(password, user.password);
     if (user) {
         if (pass) {
-            res.json("Successfully logged in");
+            return res.json("Successfully logged in");
         } else {
-            res.json("Entered password is invalid");
+            return res.json("Entered password is invalid");
         }
     } else {
-        res.json("User doesn't exist");
+        return res.json("User doesn't exist");
     }
 });
 
@@ -50,36 +54,49 @@ app.post("/newUser", async (req, res) => {
     });
 });
 
-
-app.put("/update/:id", async(req, res) => {
-    const id = req.params.id
-    const { name, email, password, contact } = req.body
+app.put("/update/:id", async (req, res) => {
+    const id = req.params.id;
+    const { name, email, password, contact } = req.body;
 
     try {
-        const updateUser = await User.findOneAndUpdate({_id: id}, { name, email, password, contact }, { new: true }, (err, foundUser) => {
-            if(!err) {
-                foundUser.name = name
-                foundUser.email = email
-                foundUser.password = password
-                foundUser.contact = contact
-    
-                foundUser.save()
+        const updateUser = await User.findOneAndUpdate(
+            { _id: id },
+            { name, email, password, contact },
+            { new: true },
+            (err, foundUser) => {
+                if (!err) {
+                    foundUser.name = name;
+                    foundUser.email = email;
+                    foundUser.password = bcrypt.hashSync(password, 10);
+                    foundUser.contact = contact;
+
+                    foundUser.save();
+                }
             }
-        })
-        res.send(updateUser)
+        );
+        res.send(updateUser);
     } catch (error) {
-        res.json(error)
+        return res.json(error);
     }
+});
 
-})
+app.get("/users", async (req, res) => {
+    try {
+        const { search } = req.query;
+        const query = await User.find({ name: { $regex: '.*' + search + '.*' }});
+        console.log('query:',query)
+        return res.json(query).end();
+    } catch (error) {
+        console.log(error);
+    }
+});
 
+app.delete("/delete/:id", async (req, res) => {
+    const id = req.params.id;
 
-app.delete("/delete/:id", async(req, res) => {
-    const id = req.params.id
-
-    await User.findByIdAndRemove(id).exec()
-    res.send("Successfully deleted")
-})
+    await User.findByIdAndRemove(id).exec();
+    res.send("Successfully deleted");
+});
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

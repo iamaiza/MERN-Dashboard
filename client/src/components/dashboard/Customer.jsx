@@ -25,7 +25,7 @@ const Customer = () => {
     return (
         <div className="pt-16 h-screen w-full userList px-24 pb-5">
             <h1 className="mb-5 font-bold text-3xl">Customers</h1>
-            <UsersTable users={customers} createUser={createNewUser} />
+            <UsersTable users={customers} setUsers={setCustomers} createUser={createNewUser} />
         </div>
     );
 };
