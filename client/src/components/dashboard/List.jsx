@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 const List = () => {
     return (
-        <div className="pt-16 min-h-screen">
-            <ul className="bg-gray-500 py-5 -mt-2 dashboard-list">
+        <div className="pt-16 min-h-screen bg-gray-500">
+            <ul className=" py-5 -mt-2 dashboard-list">
                 <li className="py-2 px-5 text-white">
                     <Link to='/dashboard/board'>Dashboard</Link>
                 </li>

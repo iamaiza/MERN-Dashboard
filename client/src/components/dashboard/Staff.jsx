@@ -25,7 +25,7 @@ const Staff = () => {
     return (
         <div className="pt-16 h-screen w-full userList px-24 pb-5">
             <h1 className="mb-5 font-bold text-3xl">Admin</h1>
-            <UsersTable users={staff} createUser={createNewUser} />
+            <UsersTable users={staff} setUsers={setStaff} createUser={createNewUser} />
         </div>
     );
 };
