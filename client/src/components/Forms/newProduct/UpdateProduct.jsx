@@ -6,30 +6,33 @@ import ProductsForm from "../../../UI/ProductsForm";
 const UpdateProduct = () => {
     const location = useLocation();
     const [name, setName] = useState(location.state.data.name);
-    const [description, setDescription] = useState(location.state.data.desc);
-    const [purchasePrice, setPurchasePrice] = useState(location.state.data.purchase);
-    const [salesPrice, setSalesPrice] = useState(location.state.data.sales);
+    const [description, setDescription] = useState(location.state.data.description);
+    const [purchasePrice, setPurchasePrice] = useState(location.state.data.purchasePrice);
+    const [salePrice, setSalePrice] = useState(location.state.data.salePrice);
     const [supplierId, setSupplierId] = useState(location.state.data.supplierId);
     const [totalCount, setTotalCount] = useState(location.state.data.totalCount);
 
     const updateProductHandler = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
-
             await axios.put(`/updateProduct/${location.state.data.id}`, {
-                name, description, purchasePrice, salesPrice, supplierId, totalCount
-            })
+                name,
+                description,
+                purchasePrice,
+                salePrice,
+                supplierId,
+                totalCount,
+            });
 
-            setName("")
-            setDescription("")
-            setPurchasePrice("")
-            setSalesPrice("")
-            setSupplierId("")
-            setTotalCount("")
-
+            setName("");
+            setDescription("");
+            setPurchasePrice("");
+            setSalePrice("");
+            setSupplierId("");
+            setTotalCount("");
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
@@ -41,8 +44,8 @@ const UpdateProduct = () => {
             setDes={setDescription}
             purchase={purchasePrice}
             setPurchase={setPurchasePrice}
-            sales={salesPrice}
-            setSales={setSalesPrice}
+            sales={salePrice}
+            setSales={setSalePrice}
             supplierId={supplierId}
             setSupplierId={setSupplierId}
             totalCount={totalCount}

@@ -42,7 +42,7 @@ const updateProduct = async (req, res) => {
             name,
             description,
             purchasePrice,
-            salesPrice,
+            salePrice,
             supplierId,
             totalCount,
         } = req.body;
@@ -53,7 +53,7 @@ const updateProduct = async (req, res) => {
                 name,
                 description,
                 purchasePrice,
-                salePrice: salesPrice,
+                salePrice,
                 supplierId,
                 totalCount,
             },
@@ -63,7 +63,7 @@ const updateProduct = async (req, res) => {
                     foundProduct.name = name;
                     foundProduct.description = description;
                     foundProduct.purchasePrice = purchasePrice;
-                    foundProduct.salePrice = salesPrice;
+                    foundProduct.salePrice = salePrice;
                     foundProduct.supplierId = supplierId;
                     foundProduct.totalCount = totalCount;
 
