@@ -6,8 +6,8 @@ import ProductsForm from "../../../UI/ProductsForm";
 const newProduct = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [salesPrice, setSalesPrice] = useState("");
     const [purchasePrice, setPurchasePrice] = useState("");
+    const [salesPrice, setSalesPrice] = useState("");
     const [totalCount, setTotalCount] = useState("");
     const [supplierId, setSupplierId] = useState("");
     const navigate = useNavigate()

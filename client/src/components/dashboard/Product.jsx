@@ -35,10 +35,10 @@ const Product = () => {
         }
     };
 
-    const updateProductHandler = async (id, name, desc, purchase, sales, supplierId, totalCount) => {
-      navigate("/dashboard/updateProduct", { state: { prevPage: "/dashboard/products", data: { id, name, desc, purchase, sales, supplierId, totalCount } } })
+    const updateProductHandler = async (id, name, description, purchasePrice, salePrice, supplierId, totalCount) => {
+      navigate("/dashboard/updateProduct", { state: { prevPage: "/dashboard/products", data: { id, name, description, purchasePrice, salePrice, supplierId, totalCount } } })
 
-      await axios.put(`/updateProduct/${id}`, { name, desc, purchase, sales, supplierId, totalCount })
+      await axios.put(`/updateProduct/${id}`, { name, description, purchasePrice, salePrice, supplierId, totalCount })
     }
 
     return (
@@ -53,27 +53,27 @@ const Product = () => {
           <table className="w-full" id="productTable">
             <thead>
               <tr className="text-left">
-                <th className="p-2 leading-5">Id</th>
-                <th className="p-2 leading-5">Name</th>
-                <th className="p-2 leading-5">Description</th>
-                <th className="p-2 leading-5">Purchase Price</th>
-                <th className="p-2 leading-5">Sales Price</th>
-                <th className="p-2 leading-5">Supplier_id</th>
-                <th className="p-2 leading-5">Total Count</th>
-                <th className="p-2 leading-5">Action</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Id</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Name</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Description</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Purchase Price</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Sales Price</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Supplier_id</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Total Count</th>
+                <th className="py-2 pl-2 pr-5 leading-5">Action</th>
               </tr>
             </thead>
           <tbody id="tbody">
             {products.map((el) => (
               <tr key={el._id} id={el._id}>
-                <td className="text-sm p-2">{el._id}</td>
-                <td className="text-sm p-2">{el.name}</td>
-                <td className="text-sm p-2">{el.description}</td>
-                <td className="text-sm p-2">{el.purchasePrice}</td>
-                <td className="text-sm p-2">{el.salePrice}</td>
-                <td className="text-sm p-2">{el.supplierId}</td>
-                <td className="text-sm p-2">{el.totalCount}</td>
-                <td className="text-sm p-2">
+                <td className="text-sm py-2 pl-2 pr-5">{el._id}</td>
+                <td className="text-sm py-2 pl-2 pr-5">{el.name}</td>
+                <td className="text-sm py-2 pl-2 pr-5">{el.description}</td>
+                <td className="text-sm py-2 pl-2 pr-5">{el.purchasePrice}</td>
+                <td className="text-sm py-2 pl-2 pr-5">{el.salePrice}</td>
+                <td className="text-sm py-2 pl-2 pr-5">{el.supplierId}</td>
+                <td className="text-sm py-2 pl-2 pr-5">{el.totalCount}</td>
+                <td className="text-sm py-2 pl-2 pr-5">
                   <div className="flex items-center justify-center gap-2">
                     <div
                       onClick={() => {
