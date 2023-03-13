@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 const UserTableBody = ({ id, name, email, contact, password, type, deleteHandler, updateHandler }) => {
   return (
     <Fragment>
-      <tr className="mt-5" id={id}>
+      <tr id={id}>
         <td className="text-sm p-2">{id}</td>
         <td className="text-sm p-2">{name}</td>
         <td className="text-sm p-2">{email}</td>

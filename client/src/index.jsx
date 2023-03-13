@@ -6,3 +6,8 @@ export { default as Sales } from "./components/dashboard/Sales";
 export { default as Staff } from "./components/dashboard/Staff";
 export { default as Supplier } from "./components/dashboard/Supplier";
 export { default as Dashboard } from "./components/dashboard/Dashboard";
+export { default as Login } from "./components/Login";
+export { default as NewUser } from "./components/Forms/newUser/NewUser";
+export { default as UpdateUser } from './components/Forms/newUser/UpdateUser';
+export { default as NewProduct } from "./components/Forms/newProduct/NewProduct"
+export { default as UpdateProduct } from "./components/Forms/newProduct/UpdateProduct";
